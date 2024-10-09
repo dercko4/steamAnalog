@@ -111,7 +111,7 @@ const TechnicalRequest = sequelize.define('technical_requests', {
   date_time_creation: {type: DataTypes.DATE, defaultValue: new Date()},
   status_request: {type: DataTypes.STRING, defaultValue: 'Новая'}
 })
-
+// Закончено
 
 module.exports={
   User, Game, VirtualServer, Friend, RequestToFriend, Chat, Messages, CommentsGame, CommentsProfile, Library,
