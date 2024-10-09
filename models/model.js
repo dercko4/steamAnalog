@@ -1,9 +1,11 @@
 const { generateKey } = require('crypto')
 const sequelize = require('../database')
-const {DataTypes, DATE} = require('sequelize')
+const {DataTypes, DATE, MEDIUMINT} = require('sequelize')
 const uuid = require('uuid')
 const database = require('../database')
 const { serialize } = require('v8')
+const { measureMemory } = require('vm')
+const { userInfo } = require('os')
 
 // id_user во всех таблицах, кроме User, является айдишкой получателя. Другие айдишки, связанные с пользователём - отправитель.
 
@@ -111,6 +113,63 @@ const TechnicalRequest = sequelize.define('technical_requests', {
   date_time_creation: {type: DataTypes.DATE, defaultValue: new Date()},
   status_request: {type: DataTypes.STRING, defaultValue: 'Новая'}
 })
+
+Friend.hasMany(User, {
+  foreignKey: 'id_user'
+})
+Friend.hasMany(User, {
+  foreignKey: 'id_friend'
+})
+RequestToFriend.hasMany(User, {
+  foreignKey: 'id_user'
+})
+RequestToFriend.hasMany(User,{
+  foreignKey: 'data_request'
+})
+TechnicalRequest.hasMany(User,{
+  foreignKey: 'id_user'
+})
+GameDeveloper.hasMany(User,{
+  foreignKey: 'id_user'
+})
+GameDeveloper.hasMany(Game,{
+  foreignKey: 'id_game'
+})
+GameDeveloper.hasMany(VirtualServer,{
+  foreignKey: 'id_server'
+})
+Library.hasMany(User, {
+  foreignKey: 'id_user'
+})
+Library.hasMany(Game, {
+  foreignKey: 'id_game'
+})
+Messages.hasMany(User, {
+  foreignKey: 'id_user'
+})
+Messages.hasMany(Chat, {
+  foreignKey: 'id_chat'
+})
+Chat.hasMany(User,{
+  foreignKey: 'id_user'
+})
+Chat.hasMany(User,{
+  foreignKey: 'id_friend'
+})
+CommentsProfile.hasMany(User, {
+  foreignKey: 'id_user'
+})
+CommentsProfile.hasMany(User, {
+  foreignKey: 'id_comment_profile'
+})
+CommentsGame.hasMany(User, {
+  foreignKey: 'id_user'
+})
+CommentsGame.hasMany(Game, {
+  foreignKey: 'id_game'
+})
+
+
 
 
 module.exports={
