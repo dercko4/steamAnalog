@@ -73,7 +73,7 @@ const CommentsGame = sequelize.define('comments_game', {
   id_comment: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
   id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
   id_game: {type: DataTypes.UUID, references: {model: Game, key: 'id_game'}},
-  estimate: {type: DataTypes.UUID, defaultValue: 0},
+  rating: {type: DataTypes.FLOAT, defaultValue: 0},
   text_comment: {type: DataTypes.STRING},
   like_comment: {type: DataTypes.STRING},
   dislike_comment: {type: DataTypes.STRING},
@@ -94,7 +94,7 @@ const Library = sequelize.define('library', {
   id_game_user: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
   id_game: {type: DataTypes.UUID, references: {model: Game, key: 'id_game'}},
   id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
-  hours_game: {type: DataTypes.TIME, defaultValue: 0},
+  hours_game: {type: DataTypes.TIME},
   last_session: {type: DataTypes.DATE, defaultValue: 0}
 })
 
