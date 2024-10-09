@@ -44,13 +44,13 @@ const VirtualServer = sequelize.define('virtual_servers', {
 
 const Friend = sequelize.define('friends', {
   id_relation: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_user: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
-  id_friend: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
+  id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
+  id_friend: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
 }, {updatedAt: false})
 
 const RequestToFriend = sequelize.define('requests_to_friend', {
   id_request: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_user: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
+  id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
   id_mb_friend: {type: DataTypes.UUID},
   status: {type: DataTypes.STRING},
   date_request: {type: DataTypes.DATE, defaultValue: new Date()}
@@ -58,21 +58,21 @@ const RequestToFriend = sequelize.define('requests_to_friend', {
 
 const Chat = sequelize.define('chat', {
   id_chat: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_user: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
-  id_friend: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
+  id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
+  id_friend: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
 }, {updatedAt: false})
 
 const Messages = sequelize.define('messages', {
   id_message: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_user: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
+  id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
   text_message: {type: DataTypes.STRING,},
   id_chat: {type: DataTypes.UUID, references: {model: Chat, key: 'id_chat'}}
 })
 
 const CommentsGame = sequelize.define('comments_game', {
   id_comment: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_user: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
-  id_game: {type: DataTypes.UUID, references: {model: Games, key: 'id_game'}},
+  id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
+  id_game: {type: DataTypes.UUID, references: {model: Game, key: 'id_game'}},
   estimate: {type: DataTypes.UUID, defaultValue: 0},
   text_comment: {type: DataTypes.STRING},
   like_comment: {type: DataTypes.STRING},
@@ -82,8 +82,8 @@ const CommentsGame = sequelize.define('comments_game', {
 
 const CommentsProfile = sequelize.define('comments_profile',{
   id_comment_profile: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_user_send: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
-  id_user_get: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
+  id_user_send: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
+  id_user_get: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
   text_comment: {type: DataTypes.STRING},
   like_comment: {type: DataTypes.STRING},
   dislike_comment: {type: DataTypes.STRING},
@@ -92,26 +92,26 @@ const CommentsProfile = sequelize.define('comments_profile',{
 
 const Library = sequelize.define('library', {
   id_game_user: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_game: {type: DataTypes.UUID, references: {model: Games, key: 'id_game'}},
-  id_user: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
+  id_game: {type: DataTypes.UUID, references: {model: Game, key: 'id_game'}},
+  id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
   hours_game: {type: DataTypes.TIME, defaultValue: 0},
   last_session: {type: DataTypes.DATE, defaultValue: 0}
 })
 
 const GameDeveloper = sequelize.define('game_developers', {
   id_developer: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_game: {type: DataTypes.UUID, references: {model: Games, key: 'id_game'}},
+  id_game: {type: DataTypes.UUID, references: {model: Game, key: 'id_game'}},
   id_server: {type: DataTypes.UUID, references: {model: VirtualServer, key: 'id_server'}},
-  id_user: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}}
+  id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}}
 })
 
 const TechnicalRequest = sequelize.define('technical_requests', {
   id_request: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
-  id_user: {type: DataTypes.UUID, references: {model: Users, key: 'id_user'}},
+  id_user: {type: DataTypes.UUID, references: {model: User, key: 'id_user'}},
   type_request: {type: DataTypes.STRING},
   text_request: {type: DataTypes.STRING},
   date_time_creation: {type: DataTypes.DATE, defaultValue: new Date()},
-  status_request: {type: DataTypes.STRING, defaultValue: 'Новая'}
+  status_request: {type: DataTypes.STRING, defaultValue: 'new'}
 })
 
 Friend.hasMany(User, {
