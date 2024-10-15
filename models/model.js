@@ -7,7 +7,6 @@ const { serialize } = require('v8')
 const { measureMemory } = require('vm')
 const { userInfo } = require('os')
 
-// id_user во всех таблицах, кроме User, является айдишкой получателя. Другие айдишки, связанные с пользователём - отправитель.
 
 const User = sequelize.define('users',{
   id_user: {type: DataTypes.UUID, primaryKey: true, defualtValue: uuid.v4()},
